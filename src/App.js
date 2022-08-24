@@ -1,10 +1,14 @@
 
 import { ErrorBoundary } from "react-error-boundary";
-// import Carousel from "./components/Carousel";
 import ImageCard from "./components/ImageCard";
 import Navbar from "./components/Navbar";
 import Fallback from "./components/Fallback";
 import React, { useState } from 'react';
+import TextUtiliser from "./components/TextUtiliser";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 function App() {
@@ -32,28 +36,66 @@ function App() {
   //mode state
   const [mode, setMode] = useState('light');
   //toggle function
-  const toggleMode =()=>{
-    if(mode==='light')
-    {
+  const toggleMode = () => {
+    if (mode === 'light') {
       setMode('dark');
       document.body.style.backgroundColor = 'grey';
     }
-    else
-    {
+    else {
       setMode('light');
       document.body.style.backgroundColor = 'white';
     }
   }
 
+
+  const [text, setText] = useState('');
+
+  //textarea onChange func
+  const txtAreaHandler = (e) => {
+    setText(e.target.value);
+  }
+
+  //UpperCase onClick func
+  const TxtUpHandler = () => {
+    let txt = text.toUpperCase();
+    setText(txt);
+  }
+  //TxtLo onClick func
+  const txtLoHandler = () => {
+    let txt = text.toLowerCase();
+    setText(txt);
+  }
+  //txtClear func
+  const txtClearHandler = () => {
+    setText('');
+  }
+  //copyToClipboard func
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(text);
+  }
+
   return (
 
     <>
-      <Navbar title="Course Café" mode={mode} toggleMode={toggleMode}/>
-      <ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
-        <ImageCard cart1={cart1} cart2={cart2} cart3={cart3} mode={mode}/>
-      </ErrorBoundary>
+
+      <Navbar title="Course Café" mode={mode} toggleMode={toggleMode} />
+
+
+      <Routes>
+        <Route path="/" element={<ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
+          <ImageCard cart1={cart1} cart2={cart2} cart3={cart3} mode={mode} />
+        </ErrorBoundary>} />
+
+        <Route path="/text" element={ 
+        <TextUtiliser text={text} TxtUpHandler={TxtUpHandler} txtAreaHandler={txtAreaHandler} txtLoHandler={txtLoHandler}
+          txtClearHandler={txtClearHandler} copyToClipboard={copyToClipboard} />} />
+      </Routes>
+
     </>
+
   );
 }
 
 export default App;
+
+
