@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Fallback from "./components/Fallback";
 import React, { useState } from 'react';
 import TextUtiliser from "./components/TextUtiliser";
+import Version from "./components/Version";
 import {
   Routes,
   Route,
@@ -82,6 +83,7 @@ function App() {
 
 
       <Routes>
+
         <Route path="/" element={<ErrorBoundary FallbackComponent={Fallback} onError={errorHandler}>
           <ImageCard cart1={cart1} cart2={cart2} cart3={cart3} mode={mode} />
         </ErrorBoundary>} />
@@ -89,6 +91,10 @@ function App() {
         <Route path="/text" element={ 
         <TextUtiliser text={text} TxtUpHandler={TxtUpHandler} txtAreaHandler={txtAreaHandler} txtLoHandler={txtLoHandler}
           txtClearHandler={txtClearHandler} copyToClipboard={copyToClipboard} />} />
+
+        <Route path="/v" element={<Version mode={mode}/>}/>
+        
+
       </Routes>
 
     </>

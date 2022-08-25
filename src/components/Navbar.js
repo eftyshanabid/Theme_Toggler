@@ -19,6 +19,9 @@ function Navbar(props) {
                         <li className="nav-item">
                             <Link className="nav-link" to='/text'>Text Utiliser</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/v'>v0.99</Link>
+                        </li>
                     </ul>
                     <div className={`form-check form-switch text-${props.mode==='light'?'dark':'light'}`}>
                     <input  className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
